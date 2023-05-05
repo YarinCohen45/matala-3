@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { AuthenticatedUserContext } from "../../test/App";
+import { AuthenticatedUserContext } from "../App";
 import {
   StyleSheet,
   Text,
@@ -15,7 +15,7 @@ import {
 
 // import { Picker } from "@react-native-picker/picker";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../config/firebase";
+import { getAuth, updateProfile } from "firebase/auth";
 
 const backImage = require("../assets/icon.png");
 
@@ -26,6 +26,7 @@ export default function Signup({ navigation }) {
   const { setUser } = useContext(AuthenticatedUserContext);
 
   const handleSignup = () => {
+    const auth = getAuth();
     if (email !== "" && password !== "") {
       createUserWithEmailAndPassword(auth, email, password)
         .then(handleSuccessfulSignup)
@@ -34,8 +35,12 @@ export default function Signup({ navigation }) {
   };
 
   const handleSuccessfulSignup = () => {
-    setUser({email, password, fullName});
-    navigation.navigate('Home');
+    const auth = getAuth();
+    updateProfile(auth.currentUser, {displayName: fullName})
+    .then(() => {
+      setUser(auth.currentUser);
+      navigation.navigate('Home');
+    })
   }
 
   return (

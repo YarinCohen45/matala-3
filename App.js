@@ -2,7 +2,7 @@ import { View, ActivityIndicator } from "react-native";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, updateProfile, updateEmail } from "firebase/auth";
 import { auth } from "./config/firebase";
 
 import Login from "./screens/Login";
@@ -46,9 +46,11 @@ function RootNavigator() {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (authenticatedUser) => {
-      authenticatedUser ? setUser(authenticatedUser) : setUser(null);
-      setLoading(false);
+        authenticatedUser ? setUser(authenticatedUser) : setUser(null);
     });
+    
+    setLoading(false);
+
     return () => unsubscribe();
   }, [user]);
 

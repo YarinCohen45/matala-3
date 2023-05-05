@@ -1,7 +1,7 @@
 
 // import React, { useEffect } from "react";
 import React, { useContext, useEffect } from "react";
-import { AuthenticatedUserContext } from "../../test/App";
+import { AuthenticatedUserContext } from "../App";
 import { View, TouchableOpacity, Text, Image, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
@@ -44,6 +44,8 @@ const Home = () => {
 
   const { user } = useContext(AuthenticatedUserContext);
 
+  console.log(JSON.stringify(user));
+
   return (
     <View style={styles.container}>
       <TouchableOpacity 
@@ -55,7 +57,7 @@ const Home = () => {
     </TouchableOpacity>
 
 
-    <Text style={styles.text}>{user.fullName} ,כיף שחזרת</Text>
+    <Text style={styles.text}>{user.displayName} ,כיף שחזרת</Text>
     
 
       <TouchableOpacity

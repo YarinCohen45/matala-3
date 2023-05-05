@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useState } from "react";
-import { AuthenticatedUserContext } from "../../test/App";
+import { AuthenticatedUserContext } from "../App";
 // import React, { useState } from "react";
 import {
   StyleSheet,
@@ -22,19 +22,17 @@ export default function Login({ navigation }) {
   // const [fullName, setfullNamel] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setUser } = useContext(AuthenticatedUserContext);
 
   const handleLogin = () => {
     if (email !== "" && password !== "") {
       signInWithEmailAndPassword(auth, email, password)
-        .then(() => handleSuccessfulLogin(email))
+        .then(() => handleSuccessfulLogin())
         // .then(() => console.log("Loged in successfully!"))
         .catch((err) => alert("Error in login" + err.message));
     }
   };
 
-  const handleSuccessfulLogin = (email) => {
-    setUser(email);
+  const handleSuccessfulLogin = () => {
     navigation.navigate('Home');
   }
 
