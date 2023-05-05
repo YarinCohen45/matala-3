@@ -44,8 +44,6 @@ const Home = () => {
 
   const { user } = useContext(AuthenticatedUserContext);
 
-  console.log(JSON.stringify(user));
-
   return (
     <View style={styles.container}>
       <TouchableOpacity 

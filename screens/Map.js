@@ -1,11 +1,12 @@
 
 import React, { useState } from "react";
 import MapView, { Callout, Circle, Marker } from "react-native-maps";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import { MaterialIcons } from "@expo/vector-icons";
 import Constants from "expo-constants";
 
-export default function Map() {
+export default function Map({navigation}) {
   const [pin, setPin] = useState({
     latitude: 32.103376857642246,
     longitude: 35.20905301042528,
@@ -20,12 +21,12 @@ export default function Map() {
 
   return (
     <View style={{ marginTop: 50, flex: 1 }}>
-      {/* <TouchableOpacity 
+      <TouchableOpacity 
         onPress={() => navigation.navigate("Home")}
         style={styles.logoutButton}
-      >
-      <MaterialIcons name="logout" size={30} color="black" />
-    </TouchableOpacity> */}
+        >
+        <MaterialIcons name="logout" size={30} color="black" />
+      </TouchableOpacity>
       <GooglePlacesAutocomplete
         fetchDetails={true}
         GooglePlacesSearchQuery={{
