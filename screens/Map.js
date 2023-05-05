@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import MapView, { Callout, Circle, Marker } from "react-native-maps";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import { MaterialIcons } from "@expo/vector-icons";
-import Constants from "expo-constants";
+import { Ionicons } from '@expo/vector-icons';
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Map({navigation}) {
   const [pin, setPin] = useState({
@@ -20,46 +20,43 @@ export default function Map({navigation}) {
   });
 
   return (
-    <View style={{ marginTop: 50, flex: 1 }}>
-      <TouchableOpacity 
-        onPress={() => navigation.navigate("Home")}
-        style={styles.logoutButton}
-        >
-        <MaterialIcons name="logout" size={30} color="black" />
-      </TouchableOpacity>
-      <GooglePlacesAutocomplete
-        fetchDetails={true}
-        GooglePlacesSearchQuery={{
-          rankby: "distance",
-        }}
-        placeholder="Search"
-        onPress={(data, details = null) => {
-          console.log(data, details);
-          setRegion({
-            latitude: details.geometry.location.lat,
-            longitude: details.geometry.location.lng,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          });
-        }}
-        query={{
-          key: "AIzaSyCQQ3w8YmeA9k8ZGzYnTRUljQhX3YqO3VI",
-          language: "en",
-          // components: "country: us",
-          types: "establishment",
-          radius: 30000,
-          location: `${region.latitude},${region.longitude}`,
-        }}
-        styles={{
-          container: {
-            flex: 0,
-            position: "absolute",
-            width: "100%",
-            zIndex: 1,
-          },
-          listView: { backgroundColor: "white" },
-        }}
-      />
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <TouchableOpacity 
+          onPress={() => navigation.navigate("Home")}
+          style={styles.logoutButton}
+          >
+          <Ionicons name="arrow-back" size={30} color="black" />
+        </TouchableOpacity>
+        <GooglePlacesAutocomplete
+          fetchDetails={true}
+          GooglePlacesSearchQuery={{
+            rankby: "distance",
+          }}
+          placeholder="Search"
+          onPress={(data, details = null) => {
+            console.log(data, details);
+            setRegion({
+              latitude: details.geometry.location.lat,
+              longitude: details.geometry.location.lng,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            });
+          }}
+          query={{
+            key: "AIzaSyCQQ3w8YmeA9k8ZGzYnTRUljQhX3YqO3VI",
+            language: "en",
+            types: "establishment",
+            radius: 30000,
+            location: `${region.latitude},${region.longitude}`,
+          }}
+          styles={{
+            container: {
+            },
+            listView: { backgroundColor: "white" },
+          }}
+        />
+      </View>
       <MapView
         style={styles.map}
         // 32.103376857642246, 35.20905301042528
@@ -97,7 +94,7 @@ export default function Map({navigation}) {
         </Marker>
         <Circle center={pin} radius={500}></Circle>
       </MapView>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -105,13 +102,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  header: {
+    flexDirection: 'row', 
+    justifyContent: 'center', 
+    marginHorizontal: 10,
+  },
   map: {
-    width: "100%",
-    height: "100%",
+    flex: 1,
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    zIndex: -1,
   },
   logoutButton:{
-    height: 300,
-    width: 50,
     alignItems: "center",
     justifyContent: "center",
     shadowOffset: {

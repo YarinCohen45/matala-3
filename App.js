@@ -2,7 +2,7 @@ import { View, ActivityIndicator } from "react-native";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { onAuthStateChanged, updateProfile, updateEmail } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./config/firebase";
 
 import Login from "./screens/Login";

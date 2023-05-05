@@ -1,17 +1,12 @@
-import React, { useCallback, useContext, useState } from "react";
-import { AuthenticatedUserContext } from "../App";
-// import React, { useState } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
-  Button,
   TextInput,
   Image,
   SafeAreaView,
-  TouchableOpacity,
-  StatusBar,
-  Alert,
+  TouchableOpacity
 } from "react-native";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../config/firebase";
@@ -19,7 +14,6 @@ import { auth } from "../config/firebase";
 const backImage = require("../assets/icon.png");
 
 export default function Login({ navigation }) {
-  // const [fullName, setfullNamel] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -27,7 +21,6 @@ export default function Login({ navigation }) {
     if (email !== "" && password !== "") {
       signInWithEmailAndPassword(auth, email, password)
         .then(() => handleSuccessfulLogin())
-        // .then(() => console.log("Loged in successfully!"))
         .catch((err) => alert("Error in login" + err.message));
     }
   };

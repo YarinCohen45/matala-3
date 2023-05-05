@@ -4,16 +4,12 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   TextInput,
   Image,
   SafeAreaView,
-  TouchableOpacity,
-  StatusBar,
-  Alert,
+  TouchableOpacity
 } from "react-native";
 
-// import { Picker } from "@react-native-picker/picker";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { getAuth, updateProfile } from "firebase/auth";
 

@@ -1,71 +1,39 @@
-
-// import React, { useEffect } from "react";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { AuthenticatedUserContext } from "../App";
-import { View, TouchableOpacity, Text, Image, StyleSheet } from "react-native";
+import { TouchableOpacity, Text, StyleSheet, View, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { FontAwesome } from "@expo/vector-icons";
-import { MaterialIcons } from '@expo/vector-icons'; 
-// import { FontAwesome } from '@expo/vector-icons';
+import { SimpleLineIcons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import colors from "../colors";
-import { Entypo } from "@expo/vector-icons";
-// const favicon = require("../assets/favicon.png");
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Home = () => {
   const navigation = useNavigation();
 
-  // useEffect(() => {
-  //   navigation.setOptions({
-  //     headerLeft: () => (
-  //       <FontAwesome5 
-  //       name="map-marked-alt" 
-  //       size={24} 
-  //       color="black" />
-  //       // <FontAwesome
-  //       //   name="search"
-  //       //   size={24}
-  //       //   color={colors.gray}
-  //       //   style={{ marginLeft: 15 }}
-  //       // />
-  //     ),
-  // //     headerRight: () => (
-  // //       <Image
-  // //         source={favicon}
-  // //         style={{
-  // //           width: 40,
-  // //           height: 40,
-  // //           marginRight: 15,
-  // //         }}
-  // //       />
-  // //     ),
-  //   });
-  // }, [navigation]);
-
   const { user } = useContext(AuthenticatedUserContext);
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity 
-        onPress={() => navigation.navigate("Login")}
-        // onPress={() => alert(JSON.stringify(user))}
-        style={styles.logoutButton}
-      >
-      <MaterialIcons name="logout" size={30} color="black" />
-    </TouchableOpacity>
+    <SafeAreaView style={styles.container}>
+      <View style={{flexDirection: 'column', width: '100%', justifyContent: 'flex-start'}}>
+        <TouchableOpacity 
+          onPress={() => navigation.navigate("Login")}
+          style={styles.logoutButton}
+        >
+          <SimpleLineIcons name="logout" size={30} color={colors.primary} />
+        </TouchableOpacity>
 
+        <Text style={styles.text}>{user.displayName} ,כיף שחזרת</Text>
 
-    <Text style={styles.text}>{user.displayName} ,כיף שחזרת</Text>
+        <Image source={require('../assets/black-outlined-heart.png')} style={{resizeMode: 'contain', alignSelf: 'center', width: 200, height: 200}}/>
+      </View>
     
-
       <TouchableOpacity
         onPress={() => navigation.navigate("Map")}
         style={styles.mapButton}
       >
-        <FontAwesome5 name="map-marked-alt" size={24} color="black" />
+        <FontAwesome5 name="map-marked-alt" size={24} color="white" />
       </TouchableOpacity>
-    </View>
-
+    </SafeAreaView>
   );
 };
 
@@ -74,8 +42,8 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
+    justifyContent: "space-between",
+    alignItems: "center",
     backgroundColor: "#fff",
   },
 
@@ -84,6 +52,7 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
     borderRadius: 25,
+    alignSelf: 'flex-end',
     alignItems: "center",
     justifyContent: "center",
     shadowColor: colors.primary,
@@ -94,12 +63,13 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.9,
     shadowRadius: 8,
-    marginBottom: 50,
+    marginBottom: 30
   },
 
   logoutButton:{
-    height: 300,
+    height: 50,
     width: 50,
+    alignSelf: 'flex-start',
     alignItems: "center",
     justifyContent: "center",
     shadowOffset: {
@@ -112,118 +82,14 @@ const styles = StyleSheet.create({
   },
 
   text:{
-    height:490,
-    width: 300,
-    fontSize:30,
-    alignItems: "center",
-    justifyContent: "center",
+    fontSize: 40,
     shadowOffset: {
       width: 0,
       height: 5,
     },
     shadowOpacity: 0.7,
-    marginRight:10,
-    marginBottom: 5,
+    fontWeight: 'bold',
+    marginTop: 50,
+    alignSelf: 'center'
   },
-  
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// /**
-//  * @abstract Our home app screen
-//  */
-
-// import React, { useContext, useEffect } from "react";
-// import { View, TouchableOpacity, Text, Image, StyleSheet } from "react-native";
-// import { useNavigation } from "@react-navigation/native";
-// import { FontAwesome } from "@expo/vector-icons";
-// import { Entypo } from "@expo/vector-icons";
-// import { AuthenticatedUserContext } from "../../test/App";
-// const dogImage = require("../assets/icon.png");
-
-// const Home = () => {
-//   const navigation = useNavigation();
-
-//   useEffect(() => {
-//     navigation.setOptions({
-//       headerLeft: () => (
-//         <FontAwesome
-//           name="search"
-//           size={24}
-//           // color={colors.gray}
-//           style={{ marginLeft: 15 }}
-//         />
-//       ),
-//       headerRight: () => (
-//         <Image
-//           source={dogImage}
-//           style={{
-//             width: 40,
-//             height: 40,
-//             marginRight: 15,
-//           }}
-//         />
-//       ),
-//     });
-//   }, [navigation]);
-
-//   const { user, setUser } = useContext(AuthenticatedUserContext);
-
-//   return (
-//     <View style={styles.container}>
-//       <TouchableOpacity
-//         onPress={() => navigation.navigate("Chat")}
-//         style={styles.chatButton}
-//       >
-//         <Text>{user}</Text>
-//         <Entypo name="chat" size={24} color={/*colors.lightGray*/ 'white'} />
-//       </TouchableOpacity>
-//     </View>
-//   );
-// };
-
-// export default Home;
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: "flex-end",
-//     alignItems: "flex-end",
-//     backgroundColor: "#fff",
-//   },
-//   chatButton: {
-//     // backgroundColor: colors.primary,
-//     height: 50,
-//     width: 50,
-//     borderRadius: 25,
-//     alignItems: "center",
-//     justifyContent: "center",
-//     // shadowColor: colors.primary,
-//     shadowOffset: {
-//       width: 0,
-//       height: 2,
-//     },
-//     shadowOpacity: 0.9,
-//     shadowRadius: 8,
-//     marginRight: 20,
-//     marginBottom: 50,
-//   },
-// });
